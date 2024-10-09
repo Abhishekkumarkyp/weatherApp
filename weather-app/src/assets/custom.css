@@ -1,0 +1,90 @@
+/* custom.css */
+.weather-app {
+    background: linear-gradient(135deg, #1e90ff, #ff6347);
+  }
+  
+  .weather-form-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px;
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  .weather-form-card .form-control {
+    border-radius: 5px;
+    box-shadow: none;
+  }
+  
+  .weather-form-card .btn {
+    width: 100%;
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .weather-form-card .btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: rgba(255, 255, 255, 0.15);
+    transform: translate(-50%, -50%) rotate(45deg);
+    transition: all 0.75s;
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  .weather-form-card .btn:active::after {
+    width: 0;
+    height: 0;
+    opacity: 1;
+    transition: 0s;
+  }
+  
+  .weather-form-card .btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .notification {
+    background: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    animation: fadeInOut 3s ease-in-out;
+  }
+  
+  @keyframes fadeInOut {
+    0% {
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  
+  @keyframes slideIn {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
