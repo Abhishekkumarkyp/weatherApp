@@ -3,23 +3,57 @@
     <div class="card weather-form-card" :class="{ 'move-left': weather }">
       <div class="card-body">
         <h2 class="card-title text-center">Prepared During Interview</h2>
-        <input type="text" placeholder="Enter Any Number" :maxlength="5" >
+        <input type="text" placeholder="Enter Any Number" :maxlength="5" />
         <div class="form-group">
-          <select v-model.trim="country" class="form-select mt-1" name="country" required @change="SelectedCountry">
+          <select
+            v-model.trim="country"
+            class="form-select mt-1"
+            name="country"
+            required
+            @change="SelectedCountry"
+          >
             <option selected value="">Select Country</option>
-            <option v-for="l in countryList" :key="l.country_name" :value="l.country_name" v-text="l.country_name" />
+            <option
+              v-for="l in countryList"
+              :key="l.country_name"
+              :value="l.country_name"
+              v-text="l.country_name"
+            />
           </select>
-          <select v-model.trim="state" class="form-select mt-1" name="state" required @change="SelectedCity">
+          <select
+            v-model.trim="state"
+            class="form-select mt-1"
+            name="state"
+            required
+            @change="SelectedCity"
+          >
             <option selected value="">Select State</option>
-            <option v-for="l in stateList" :key="l.state_name" :value="l.state_name" v-text="l.state_name" />
+            <option
+              v-for="l in stateList"
+              :key="l.state_name"
+              :value="l.state_name"
+              v-text="l.state_name"
+            />
           </select>
-          <select v-model.trim="city" class="form-select mt-1" name="City" required>
+          <select
+            v-model.trim="city"
+            class="form-select mt-1"
+            name="City"
+            required
+          >
             <option selected value="">Select City</option>
-            <option v-for="l in cityList" :key="l.city_name" :value="l.city_name" v-text="l.city_name" />
+            <option
+              v-for="l in cityList"
+              :key="l.city_name"
+              :value="l.city_name"
+              v-text="l.city_name"
+            />
           </select>
         </div>
         <div>
-          { "country": "{{ country }}", "state": "{{ state }}", "city": "{{ city }}" }
+          { "country": "{{ country }}", "state": "{{ state }}", "city": "{{
+            city
+          }}" }
         </div>
         <div v-if="error" class="alert alert-danger mt-3">{{ error }}</div>
       </div>
@@ -29,8 +63,7 @@
 </template>
 
 <script>
-import axios from 'axios';
-
+import axios from "axios";
 
 // navigator.geolocation.getCurrentPosition(
 //   position => { console.log(`Lat:${position.coords.latitude}`, `Long:${position.coords.longitude}`); },
@@ -42,28 +75,26 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      country: '',
-      city: '',
+      country: "",
+      city: "",
       weather: null,
-      error: '',
+      error: "",
       loading: false,
-      notification: '',
+      notification: "",
       errors: {},
       countryList: [],
       accesstoken: "",
       state: "",
       stateList: [],
       cityList: [],
-
     };
   },
   created() {
     this.getaccesstoken();
-
   },
   methods: {
     validateInput(field) {
-      this.errors[field] = '';
+      this.errors[field] = "";
       if (!this[field]) {
         this.errors[field] = `The ${field} field is required.`;
       }
@@ -77,24 +108,23 @@ export default {
           `https://www.universal-tutorial.com/api/getaccesstoken`,
           {
             headers: {
-              "Accept": "application/json",
-              "api-token": "Bym360GEhG_f42nsmvxfOCHfu4atzdoWihSj9L5qxPoGUcw2YqsAxz87AQXmVzJca5U",
-              "user-email": "abhishekkumarkyp@gmail.com"
-            }
+              Accept: "application/json",
+              "api-token":
+                "Bym360GEhG_f42nsmvxfOCHfu4atzdoWihSj9L5qxPoGUcw2YqsAxz87AQXmVzJca5U",
+              "user-email": "abhishekkumarkyp@gmail.com",
+            },
           }
         );
-
 
         if (response.data && response.data.auth_token) {
           // console.log(response.data.auth_token)
           this.accesstoken = response.data.auth_token;
           this.getCountryList();
         } else {
-          this.error = 'No accesstoken found in the response.';
+          this.error = "No accesstoken found in the response.";
         }
-
       } catch (error) {
-        this.error = 'Failed to fetch accesstoken. Please try again.';
+        this.error = "Failed to fetch accesstoken. Please try again.";
       } finally {
         this.loading = false;
       }
@@ -108,20 +138,19 @@ export default {
           `https://www.universal-tutorial.com/api/countries/`,
           {
             headers: {
-              "Authorization": "Bearer " + this.accesstoken,
-              "Accept": "application/json"
-            }
+              Authorization: "Bearer " + this.accesstoken,
+              Accept: "application/json",
+            },
           }
         );
 
         if (response.data && response.data.length > 0) {
           this.countryList = response.data;
         } else {
-          this.error = 'No country found in the response.';
+          this.error = "No country found in the response.";
         }
-
       } catch (error) {
-        this.error = 'Failed to fetch countries. Please try again.';
+        this.error = "Failed to fetch countries. Please try again.";
       } finally {
         this.loading = false;
       }
@@ -135,19 +164,19 @@ export default {
           `https://www.universal-tutorial.com/api//states/${this.country}`,
           {
             headers: {
-              "Authorization": "Bearer " + this.accesstoken,
-              "Accept": "application/json"
-            }
+              Authorization: "Bearer " + this.accesstoken,
+              Accept: "application/json",
+            },
           }
         );
 
         if (response.data && response.data.length > 0) {
           this.stateList = response.data;
         } else {
-          this.error = 'No state found in the response.';
+          this.error = "No state found in the response.";
         }
       } catch (error) {
-        this.error = 'Failed to fetch state. Please try again.';
+        this.error = "Failed to fetch state. Please try again.";
       } finally {
         this.loading = false;
       }
@@ -161,33 +190,32 @@ export default {
           `https://www.universal-tutorial.com/api/cities/${this.state}`,
           {
             headers: {
-              "Authorization": "Bearer " + this.accesstoken,
-              "Accept": "application/json"
-            }
+              Authorization: "Bearer " + this.accesstoken,
+              Accept: "application/json",
+            },
           }
         );
-
 
         if (response.data && response.data.length > 0) {
           this.cityList = response.data;
         } else {
-          this.error = 'No city found in the response.';
+          this.error = "No city found in the response.";
         }
       } catch (error) {
-        this.error = 'Failed to fetch city. Please try again.';
+        this.error = "Failed to fetch city. Please try again.";
       } finally {
         this.loading = false;
       }
     },
 
     async getWeather() {
-      this.validateInput('country');
-      this.validateInput('city');
+      this.validateInput("country");
+      this.validateInput("city");
       if (this.errors.country || this.errors.city) return;
 
       this.loading = true;
       try {
-        const apiKey = '2f75a68fbf9743e99e30a1b686448abf';
+        const apiKey = "2f75a68fbf9743e99e30a1b686448abf";
         // const response = await axios.get(
         //   `https://api.openweathermap.org/data/2.5/weather?q=${this.city},${this.country}&APPID=${apiKey}`
         // );
@@ -195,32 +223,37 @@ export default {
           `https://www.universal-tutorial.com/rest-apis/free-rest-api-for-country-state-city?q=${this.city},${this.country}&APPID=${apiKey}`
         );
         this.weather = response.data;
-        this.error = '';
-        this.notification = 'Weather data fetched successfully!';
-        setTimeout(() => (this.notification = ''), 3000);
+        this.error = "";
+        this.notification = "Weather data fetched successfully!";
+        setTimeout(() => (this.notification = ""), 3000);
 
         // Update background color based on weather
         const weatherCondition = this.weather.weather[0].main.toLowerCase();
-        const appElement = document.querySelector('.weather-app');
-        if (weatherCondition.includes('rain')) {
-          appElement.style.background = 'linear-gradient(135deg, #4b79a1, #283e51)';
-        } else if (weatherCondition.includes('clear')) {
-          appElement.style.background = 'linear-gradient(135deg, #ff7e5f, #feb47b)';
-        } else if (weatherCondition.includes('clouds')) {
-          appElement.style.background = 'linear-gradient(135deg, #bdc3c7, #2c3e50)';
-        } else if (weatherCondition.includes('snow')) {
-          appElement.style.background = 'linear-gradient(135deg, #83a4d4, #b6fbff)';
+        const appElement = document.querySelector(".weather-app");
+        if (weatherCondition.includes("rain")) {
+          appElement.style.background =
+            "linear-gradient(135deg, #4b79a1, #283e51)";
+        } else if (weatherCondition.includes("clear")) {
+          appElement.style.background =
+            "linear-gradient(135deg, #ff7e5f, #feb47b)";
+        } else if (weatherCondition.includes("clouds")) {
+          appElement.style.background =
+            "linear-gradient(135deg, #bdc3c7, #2c3e50)";
+        } else if (weatherCondition.includes("snow")) {
+          appElement.style.background =
+            "linear-gradient(135deg, #83a4d4, #b6fbff)";
         } else {
-          appElement.style.background = 'linear-gradient(135deg, #1e90ff, #ff6347)';
+          appElement.style.background =
+            "linear-gradient(135deg, #1e90ff, #ff6347)";
         }
       } catch (err) {
-        this.error = 'Failed to fetch weather data. Please try again.';
+        this.error = "Failed to fetch weather data. Please try again.";
         this.weather = null;
       } finally {
         this.loading = false;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
